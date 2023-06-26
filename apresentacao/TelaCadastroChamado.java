@@ -96,114 +96,31 @@ public class TelaCadastroChamado extends JFrame {
 
         inicializar();
     }
-
+    
+    public GridBagConstraints criaObjeto() {
+    	container.setLayout(new GridBagLayout());
+        GridBagConstraints cts = new GridBagConstraints();
+		return cts;
+    } 
+    
     private void inicializar() {
 
-        container.setLayout(new GridBagLayout());
+    	container.setLayout(new GridBagLayout());
         GridBagConstraints cts = new GridBagConstraints();
 
-        lbTecnico = new JLabel("Tecnico: ");
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 0;
-        cts.gridy = 0;
-        container.add(lbTecnico, cts);
+        selecionaTecnico(cts);
+    	
+    	selecionaCliente(cts);
 
-        cbTecnico = new JComboBox();
-        cbTecnico.setPreferredSize(new Dimension(150, 20));
-        Iterator iterator = tecnicoDAO.voltaCashTecnico().keySet().iterator();
-        while (iterator.hasNext()) {
-            this.cbTecnico.addItem(tecnicoDAO.voltaCashTecnico().get(iterator.next()));
-        }
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 1;
-        cts.gridy = 0;
-        container.add(cbTecnico, cts);
+        selecionaProblema(cts);
 
-        lbClienteEmpresa = new JLabel("Cliente: ");
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 0;
-        cts.gridy = 1;
-        container.add(lbClienteEmpresa, cts);
+        selecionaConexao(cts);
 
-        cbCliente = new JComboBox();
-        cbCliente.setPreferredSize(new Dimension(400, 20));
-        Iterator iterator1 = clienteDAO.voltaCashCliente().keySet().iterator();
-        while (iterator1.hasNext()) {
-            this.cbCliente.addItem(clienteDAO.voltaCashCliente().get(iterator1.next()));
-        }
-        cts.gridx = 1;
-        cts.gridy = 1;
-        container.add(cbCliente, cts);
+        selecionaEndRede(cts);
 
-        lbProblema = new JLabel("Escolha o problema: ");
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 0;
-        cts.gridy = 2;
-        container.add(lbProblema, cts);
+        tipoDB(cts);
 
-        cbProblema = new JComboBox();
-        cbProblema.addItem("Rede");
-        cbProblema.addItem("Banco de dados");
-        cbProblema.addItem("Desempenho");
-        cbProblema.addActionListener(gerenciadorEventos);
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 1;
-        cts.gridy = 2;
-        container.add(cbProblema, cts);
-
-        lbRede = new JLabel("Tipo Conexao: ");
-        cts.gridx = 0;
-        cts.gridy = 3;
-        container.add(lbRede, cts);
-
-        cbRede = new JComboBox();
-        cbRede.addItem("ADSL");
-        cbRede.addItem("Radio");
-        cbRede.addItem("Cable Modem");
-        cbRede.addItem("Outra");
-        cts.gridx = 1;
-        cts.gridy = 3;
-        container.add(cbRede, cts);
-
-        lbEnderecoRede = new JLabel("Endereco de Rede: ");
-        cts.gridx = 0;
-        cts.gridy = 4;
-        container.add(lbEnderecoRede, cts);
-
-        tfEnderecoRede = new JTextField();
-        tfEnderecoRede.setPreferredSize(new Dimension(150, 20));
-        cts.gridx = 1;
-        cts.gridy = 4;
-        container.add(tfEnderecoRede, cts);
-
-        lbBancoDados = new JLabel("Tipo BD");
-        lbBancoDados.setVisible(false);
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 0;
-        cts.gridy = 3;
-        container.add(lbBancoDados, cts);
-
-        cbBancoDados = new JComboBox();
-        cbBancoDados.addItem("SQLServer");
-        cbBancoDados.addItem("Oracle");
-        cbBancoDados.addItem("MySql");
-        cbBancoDados.setVisible(false);
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 1;
-        cts.gridy = 3;
-        container.add(cbBancoDados, cts);
-
-        lbProblemaDesempenho = new JLabel("Informar a operação: ");
-        lbProblemaDesempenho.setVisible(false);
-        cts.gridx = 0;
-        cts.gridy = 3;
-        container.add(lbProblemaDesempenho, cts);
-
-        tfProblemaDesempenho = new JTextField();
-        tfProblemaDesempenho.setVisible(false);
-        cts.gridx = 1;
-        cts.gridy = 3;
-        container.add(tfProblemaDesempenho, cts);
+        operacao(cts);
 
         lbDuracao = new JLabel("Duracao: ");
         lbDuracao.setVisible(false);
@@ -213,7 +130,7 @@ public class TelaCadastroChamado extends JFrame {
 
         tfDuracao = new JTextField();
         tfDuracao.setPreferredSize(
-                new Dimension(150, 20));
+        		new Dimension(150, 20));
         tfDuracao.setVisible(false);
         cts.fill = GridBagConstraints.HORIZONTAL;
         cts.gridx = 1;
@@ -259,7 +176,7 @@ public class TelaCadastroChamado extends JFrame {
         tfPrioridade.addItem("Normal");
         tfPrioridade.addItem("Importante");
         tfPrioridade.addItem("Urgente");
-        tfPrioridade.addItem("Crítica");        
+        tfPrioridade.addItem("Crï¿½tica");        
         tfPrioridade.setPreferredSize(new Dimension(150, 20));
         cts.fill = GridBagConstraints.HORIZONTAL;
         cts.gridx = 1;
@@ -279,7 +196,7 @@ public class TelaCadastroChamado extends JFrame {
         cts.gridx = 1;
         cts.gridy = 8;
         container.add(cbSO, cts);
-        lbVersaoSO = new JLabel("Versão SO: ");
+        lbVersaoSO = new JLabel("Versï¿½o SO: ");
         cts.gridx = 0;
         cts.gridy = 9;
 
@@ -309,6 +226,135 @@ public class TelaCadastroChamado extends JFrame {
 
     }
 
+	public void operacao(GridBagConstraints cts) {
+		lbProblemaDesempenho = new JLabel("Informar a operaï¿½ï¿½o: ");
+        lbProblemaDesempenho.setVisible(false);
+        cts.gridx = 0;
+        cts.gridy = 3;
+        container.add(lbProblemaDesempenho, cts);
+
+        tfProblemaDesempenho = new JTextField();
+        tfProblemaDesempenho.setVisible(false);
+        cts.gridx = 1;
+        cts.gridy = 3;
+        container.add(tfProblemaDesempenho, cts);
+	}
+
+	public void tipoDB(GridBagConstraints cts) {
+		lbBancoDados = new JLabel("Tipo BD");
+        lbBancoDados.setVisible(false);
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 0;
+        cts.gridy = 3;
+        container.add(lbBancoDados, cts);
+
+        cbBancoDados = new JComboBox();
+        cbBancoDados.addItem("SQLServer");
+        cbBancoDados.addItem("Oracle");
+        cbBancoDados.addItem("MySql");
+        cbBancoDados.setVisible(false);
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 1;
+        cts.gridy = 3;
+        container.add(cbBancoDados, cts);
+	}
+    
+public void selecionaTecnico(GridBagConstraints cts) {
+    	
+    	lbTecnico = new JLabel("Tecnico: ");
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 0;
+        cts.gridy = 0;
+        container.add(lbTecnico, cts);
+        
+        int width = 150;
+        int height = 20;
+        cbTecnico = new JComboBox();
+        cbTecnico.setPreferredSize(new Dimension(width, height));
+        Iterator iterator = tecnicoDAO.voltaCashTecnico().keySet().iterator();
+        while (iterator.hasNext()) {
+            this.cbTecnico.addItem(tecnicoDAO.voltaCashTecnico().get(iterator.next()));
+        }
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 1;
+        cts.gridy = 0;
+        container.add(cbTecnico, cts);
+    	
+    }
+    
+    public void selecionaCliente(GridBagConstraints cts) {
+    	
+    	lbClienteEmpresa = new JLabel("Cliente: ");
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 0;
+        cts.gridy = 1;
+        container.add(lbClienteEmpresa, cts);
+
+        int width = 400;
+        int height = 20;
+        cbCliente = new JComboBox();
+        cbCliente.setPreferredSize(new Dimension(width, height));
+        Iterator iterator1 = clienteDAO.voltaCashCliente().keySet().iterator();
+        while (iterator1.hasNext()) {
+            this.cbCliente.addItem(clienteDAO.voltaCashCliente().get(iterator1.next()));
+        }
+        cts.gridx = 1;
+        cts.gridy = 1;
+        container.add(cbCliente, cts);
+    	
+    }
+    
+    public void selecionaProblema(GridBagConstraints cts) {
+    	
+    	lbProblema = new JLabel("Escolha o problema: ");
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 0;
+        cts.gridy = 2;
+        container.add(lbProblema, cts);
+
+        cbProblema = new JComboBox();
+        cbProblema.addItem("Rede");
+        cbProblema.addItem("Banco de dados");
+        cbProblema.addItem("Desempenho");
+        cbProblema.addActionListener(gerenciadorEventos);
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 1;
+        cts.gridy = 2;
+        container.add(cbProblema, cts);
+    	
+   	}
+    
+    public void selecionaConexao(GridBagConstraints cts) {
+    	
+    	lbRede = new JLabel("Tipo Conexao: ");
+        cts.gridx = 0;
+        cts.gridy = 3;
+        container.add(lbRede, cts);
+
+        cbRede = new JComboBox();
+        cbRede.addItem("ADSL");
+        cbRede.addItem("Radio");
+        cbRede.addItem("Cable Modem");
+        cbRede.addItem("Outra");
+        cts.gridx = 1;
+        cts.gridy = 3;
+        container.add(cbRede, cts);
+    	
+    }
+
+	public void selecionaEndRede(GridBagConstraints cts) {
+		lbEnderecoRede = new JLabel("Endereco de Rede: ");
+        cts.gridx = 0;
+        cts.gridy = 4;
+        container.add(lbEnderecoRede, cts);
+
+        tfEnderecoRede = new JTextField();
+        tfEnderecoRede.setPreferredSize(new Dimension(150, 20));
+        cts.gridx = 1;
+        cts.gridy = 4;
+        container.add(tfEnderecoRede, cts);
+	}
+
     private class GerenciadorEventos implements ActionListener {
 
         @Override
@@ -334,7 +380,7 @@ public class TelaCadastroChamado extends JFrame {
                 		prioridade = 2;
                 	}else if(tfPrioridade.getSelectedItem().equals("Urgente")){
                 		prioridade = 3;
-                	}else if(tfPrioridade.getSelectedItem().equals("Crítica")){
+                	}else if(tfPrioridade.getSelectedItem().equals("Crï¿½tica")){
                 		prioridade = 4;
                 	}
                 	
@@ -366,7 +412,7 @@ public class TelaCadastroChamado extends JFrame {
                 		prioridade = 2;
                 	}else if(tfPrioridade.getSelectedItem().equals("Urgente")){
                 		prioridade = 3;
-                	}else if(tfPrioridade.getSelectedItem().equals("Crítica")){
+                	}else if(tfPrioridade.getSelectedItem().equals("Crï¿½tica")){
                 		prioridade = 4;
                 	}
                 	
@@ -389,7 +435,7 @@ public class TelaCadastroChamado extends JFrame {
                 		prioridade = 2;
                 	}else if(tfPrioridade.getSelectedItem().equals("Urgente")){
                 		prioridade = 3;
-                	}else if(tfPrioridade.getSelectedItem().equals("Crítica")){
+                	}else if(tfPrioridade.getSelectedItem().equals("Crï¿½tica")){
                 		prioridade = 4;
                 	}
                 	
