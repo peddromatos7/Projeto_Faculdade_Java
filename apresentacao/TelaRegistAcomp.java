@@ -102,40 +102,9 @@ public class TelaRegistAcomp extends JFrame {
         cts.gridy = 1;
         container.add(tfTitulo, cts);
 
-        lbStatus = new JLabel("Status: ");
-        lbStatus.setVisible(false);
-        cts.gridx = 0;
-        cts.gridy = 2;
-        container.add(lbStatus, cts);
+        status(cts);
 
-        cbStatus = new JComboBox();
-        cbStatus.addItem("Em atendimento");
-        cbStatus.addItem("Esperando resposta do usuario");
-        cbStatus.addItem("Encerrado");
-        cbStatus.addItem("Sem solucao");
-        cbStatus.addActionListener(gerenciador);
-        cbStatus.setVisible(false);
-        cts.gridx = 1;
-        cts.gridy = 2;
-        container.add(cbStatus, cts);
-
-        lbTecnico = new JLabel("Tecnico: ");
-        lbTecnico.setVisible(false);
-        cts.gridx = 0;
-        cts.gridy = 3;
-        container.add(lbTecnico, cts);
-
-        cbTecnico = new JComboBox();
-        cbTecnico.setPreferredSize(new Dimension(150, 20));
-        Iterator iterator = tecnicoDAO.voltaCashTecnico().keySet().iterator();
-        while (iterator.hasNext()) {
-            this.cbTecnico.addItem(tecnicoDAO.voltaCashTecnico().get(iterator.next()));
-        }
-        cbTecnico.setVisible(false);
-        cts.fill = GridBagConstraints.HORIZONTAL;
-        cts.gridx = 1;
-        cts.gridy = 3;
-        container.add(cbTecnico, cts);
+        tecnico(cts);
 
         lbAssunto = new JLabel("Assunto Tratado:");
         lbAssunto.setVisible(false);
@@ -200,6 +169,45 @@ public class TelaRegistAcomp extends JFrame {
         cts.gridy = 7;
         container.add(btCancelar, cts);
     }
+
+	public void status(GridBagConstraints cts) {
+		lbStatus = new JLabel("Status: ");
+        lbStatus.setVisible(false);
+        cts.gridx = 0;
+        cts.gridy = 2;
+        container.add(lbStatus, cts);
+
+        cbStatus = new JComboBox();
+        cbStatus.addItem("Em atendimento");
+        cbStatus.addItem("Esperando resposta do usuario");
+        cbStatus.addItem("Encerrado");
+        cbStatus.addItem("Sem solucao");
+        cbStatus.addActionListener(gerenciador);
+        cbStatus.setVisible(false);
+        cts.gridx = 1;
+        cts.gridy = 2;
+        container.add(cbStatus, cts);
+	}
+
+	public void tecnico(GridBagConstraints cts) {
+		lbTecnico = new JLabel("Tecnico: ");
+        lbTecnico.setVisible(false);
+        cts.gridx = 0;
+        cts.gridy = 3;
+        container.add(lbTecnico, cts);
+
+        cbTecnico = new JComboBox();
+        cbTecnico.setPreferredSize(new Dimension(150, 20));
+        Iterator iterator = tecnicoDAO.voltaCashTecnico().keySet().iterator();
+        while (iterator.hasNext()) {
+            this.cbTecnico.addItem(tecnicoDAO.voltaCashTecnico().get(iterator.next()));
+        }
+        cbTecnico.setVisible(false);
+        cts.fill = GridBagConstraints.HORIZONTAL;
+        cts.gridx = 1;
+        cts.gridy = 3;
+        container.add(cbTecnico, cts);
+	}
 
     private class GerenciadorEventos implements ActionListener {
 
