@@ -404,17 +404,7 @@ public void selecionaTecnico(GridBagConstraints cts) {
                 } else if (cbProblema.getSelectedItem().equals("Desempenho")) {	
                 	
                 	
-                	int prioridade = 0; 
-                	
-                	if(tfPrioridade.getSelectedItem().equals("Normal")){
-                		prioridade = 1;
-                	}else if(tfPrioridade.getSelectedItem().equals("Importante")){
-                		prioridade = 2;
-                	}else if(tfPrioridade.getSelectedItem().equals("Urgente")){
-                		prioridade = 3;
-                	}else if(tfPrioridade.getSelectedItem().equals("Cr�tica")){
-                		prioridade = 4;
-                	}
+                	int prioridade = prioridade();
                 	
                     try{
                     Chamado c = ctrChamados.InserirChamadoDesempenho(tfTitulo.getText(), tfDescricao.getText(), prioridade,
@@ -455,48 +445,76 @@ public void selecionaTecnico(GridBagConstraints cts) {
                 new TelaCancelar().setVisible(true);
             } else if (cbProblema.getSelectedItem().equals("Rede")) {
 
-                lbRede.setVisible(true);
-                tfEnderecoRede.setVisible(true);
-                cbRede.setVisible(true);
-                lbEnderecoRede.setVisible(true);
-
-                lbBancoDados.setVisible(false);
-                cbBancoDados.setVisible(false);
-                lbDuracao.setVisible(false);
-                tfDuracao.setVisible(false);
-                lbProblemaDesempenho.setVisible(false);
-                tfProblemaDesempenho.setVisible(false);
+                itemRede();
 
             } else if (cbProblema.getSelectedItem().equals("Desempenho")) {
 
-                lbDuracao.setVisible(true);
-                tfDuracao.setVisible(true);
-                lbProblemaDesempenho.setVisible(true);
-                tfProblemaDesempenho.setVisible(true);
-
-                lbBancoDados.setVisible(false);
-                cbBancoDados.setVisible(false);
-                lbRede.setVisible(false);
-                tfEnderecoRede.setVisible(false);
-                cbRede.setVisible(false);
-                lbEnderecoRede.setVisible(false);
+                itemDesempenho();
+                
             } else if (cbProblema.getSelectedItem().equals("Banco de dados")) {
 
-                lbBancoDados.setVisible(true);
-                cbBancoDados.setVisible(true);
-
-                lbDuracao.setVisible(false);
-                tfDuracao.setVisible(false);
-                lbProblemaDesempenho.setVisible(false);
-                tfProblemaDesempenho.setVisible(false);
-                lbRede.setVisible(false);
-                tfEnderecoRede.setVisible(false);
-                cbRede.setVisible(false);
-                lbEnderecoRede.setVisible(false);
+                itemDB();
 
             }
 
         }
+
+		public int prioridade() {
+			int prioridade = 0; 
+			
+			if(tfPrioridade.getSelectedItem().equals("Normal")){
+				prioridade = 1;
+			}else if(tfPrioridade.getSelectedItem().equals("Importante")){
+				prioridade = 2;
+			}else if(tfPrioridade.getSelectedItem().equals("Urgente")){
+				prioridade = 3;
+			}else if(tfPrioridade.getSelectedItem().equals("Cr�tica")){
+				prioridade = 4;
+			}
+			return prioridade;
+		}
+
+		public void itemDB() {
+			lbBancoDados.setVisible(true);
+			cbBancoDados.setVisible(true);
+
+			lbDuracao.setVisible(false);
+			tfDuracao.setVisible(false);
+			lbProblemaDesempenho.setVisible(false);
+			tfProblemaDesempenho.setVisible(false);
+			lbRede.setVisible(false);
+			tfEnderecoRede.setVisible(false);
+			cbRede.setVisible(false);
+			lbEnderecoRede.setVisible(false);
+		}
+
+		public void itemDesempenho() {
+			lbDuracao.setVisible(true);
+			tfDuracao.setVisible(true);
+			lbProblemaDesempenho.setVisible(true);
+			tfProblemaDesempenho.setVisible(true);
+
+			lbBancoDados.setVisible(false);
+			cbBancoDados.setVisible(false);
+			lbRede.setVisible(false);
+			tfEnderecoRede.setVisible(false);
+			cbRede.setVisible(false);
+			lbEnderecoRede.setVisible(false);
+		}
+
+		public void itemRede() {
+			lbRede.setVisible(true);
+			tfEnderecoRede.setVisible(true);
+			cbRede.setVisible(true);
+			lbEnderecoRede.setVisible(true);
+
+			lbBancoDados.setVisible(false);
+			cbBancoDados.setVisible(false);
+			lbDuracao.setVisible(false);
+			tfDuracao.setVisible(false);
+			lbProblemaDesempenho.setVisible(false);
+			tfProblemaDesempenho.setVisible(false);
+		}
     }
     private class TelaCancelar extends JFrame {
 
